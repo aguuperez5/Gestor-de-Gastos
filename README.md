@@ -1,6 +1,0 @@
-- **react-hook-form**: Para manejo de formularios y validaciones de manera sencilla y eficiente.
-- **yup**: Para validaciones de esquemas de datos, suele usarse junto a react-hook-form.
-- **date-fns** o **dayjs**: Para manipulación y formateo de fechas.
-- **notistack**: Para mostrar notificaciones (snackbars) apilables y personalizables sobre MUI.
-- **react-query** (ahora TanStack Query): Para manejo avanzado de fetching, caching y sincronización de datos con el backend.
-- **react-icons**: Para agregar íconos fácilmente y complementar los de MUI.
