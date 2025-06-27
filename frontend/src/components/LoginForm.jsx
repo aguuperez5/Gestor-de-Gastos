@@ -18,8 +18,23 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, mx: 'auto', mt: 4, p: 3, boxShadow: 3, borderRadius: 2, bgcolor: 'background.paper' }}>
-      <Typography variant="h5" mb={2}>Iniciar sesión</Typography>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        maxWidth: 400,
+        mx: 'auto',
+        mt: 4,
+        p: 3,
+        boxShadow: 4,
+        borderRadius: 'var(--border-radius)',
+        bgcolor: 'var(--surface)',
+        border: '2px solid var(--primary-light)'
+      }}
+    >
+      <Typography variant="h5" mb={2} sx={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
+        Iniciar sesión
+      </Typography>
       <TextField
         label="Email"
         value={email}
@@ -28,6 +43,9 @@ const LoginForm = ({ onLogin }) => {
         margin="normal"
         required
         type="email"
+        InputProps={{
+          style: { background: 'white', borderRadius: 8 }
+        }}
       />
       <TextField
         label="Contraseña"
@@ -37,8 +55,22 @@ const LoginForm = ({ onLogin }) => {
         fullWidth
         margin="normal"
         required
+        InputProps={{
+          style: { background: 'white', borderRadius: 8 }
+        }}
       />
-      <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+      <Button
+        type="submit"
+        variant="contained"
+        fullWidth
+        sx={{
+          mt: 2,
+          bgcolor: 'var(--primary)',
+          color: 'white',
+          fontWeight: 700,
+          '&:hover': { bgcolor: 'var(--primary-dark)' }
+        }}
+      >
         Iniciar sesión
       </Button>
       {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}

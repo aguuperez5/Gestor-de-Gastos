@@ -6,8 +6,7 @@ function LoginPage({ onLogin }) {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
       <LoginForm onLogin={handleLogin} />
     </div>
   );

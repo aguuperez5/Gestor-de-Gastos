@@ -10,5 +10,9 @@ export const getGastos = (token, params = {}) =>
   api.get('/gastos', { headers: { Authorization: `Bearer ${token}` }, params });
 export const createGasto = (data, token) =>
   api.post('/gastos', data, { headers: { Authorization: `Bearer ${token}` } });
+export const updateGasto = (id, data, token) =>
+  api.put(`/gastos/${id}`, data, { headers: { Authorization: `Bearer ${token}` } });
+export const deleteGasto = (id, token) =>
+  api.delete(`/gastos/${id}`, { headers: { Authorization: `Bearer ${token}` } });
 
 export default api;

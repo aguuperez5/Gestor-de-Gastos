@@ -1,6 +1,108 @@
+/* Paleta de verdes claros y fondo suave */
+:root {
+  --primary: #43a047;
+  --primary-light: #a5d6a7;
+  --primary-dark: #2e7031;
+  --accent: #b2ff59;
+  --background: #e8f5e9;
+  --surface: #f1f8e9;
+  --text: #263238;
+  --border-radius: 16px;
+}
+
 /* Estilos globales básicos */
 body {
   margin: 0;
-  font-family: Roboto, system-ui, sans-serif;
-  background: #f5f6fa;
+  font-family: 'Roboto', system-ui, sans-serif;
+  background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+/* Responsive: pantallas medianas y pequeñas */
+@media (max-width: 900px) {
+  :root {
+    --border-radius: 12px;
+  }
+  body {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --border-radius: 8px;
+  }
+  body {
+    font-size: 14px;
+    padding: 0;
+  }
+  .responsive-main {
+    padding: 12px !important;
+  }
+  .responsive-aside {
+    width: 100vw !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--primary-light) !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 0 8px 0 !important;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--surface);
+  }
+  .responsive-menu-list {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100vw !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+  .responsive-menu-btn {
+    border-radius: 0 !important;
+    padding: 10px 8px !important;
+    font-size: 15px !important;
+    margin-bottom: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    width: auto !important;
+    min-width: 70px !important;
+  }
+  .responsive-logout-btn {
+    margin: 0 8px 0 0 !important;
+    align-self: unset !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1400px) {
+  body {
+    font-size: 18px;
+  }
 }

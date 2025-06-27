@@ -21,16 +21,29 @@ exports.createGasto = async (req, res) => {
 //Obtener Gastos
 exports.getGastos = async (req, res) => {
   const userId = req.user.userId;  // El ID del usuario que viene del JWT
-  const { mes, categoria } = req.query;  // Parámetros opcionales de filtro
+  const { mes, anio, categoria } = req.query;  // Parámetros opcionales de filtro
 
   const where = { user_id: userId };
 
-  // Si el usuario quiere filtrar por mes:
-  if (mes) {
-    where.fecha = db.Sequelize.where(
-      db.Sequelize.fn('EXTRACT', db.Sequelize.literal('MONTH FROM "fecha"')),
-      mes
-    );
+  // Si el usuario quiere filtrar por mes y/o año:
+  if (mes || anio) {
+    where[db.Sequelize.Op.and] = [];
+    if (mes) {
+      where[db.Sequelize.Op.and].push(
+        db.Sequelize.where(
+          db.Sequelize.fn('EXTRACT', db.Sequelize.literal('MONTH FROM "fecha"')),
+          mes
+        )
+      );
+    }
+    if (anio) {
+      where[db.Sequelize.Op.and].push(
+        db.Sequelize.where(
+          db.Sequelize.fn('EXTRACT', db.Sequelize.literal('YEAR FROM "fecha"')),
+          anio
+        )
+      );
+    }
   }
 
   // Si quiere filtrar por categoría:
@@ -116,23 +129,38 @@ exports.getTotalMensual = async (req, res) => {
     res.status(500).json({ message: 'Error al calcular el total mensual' });
   }
 };
-// Obtener Total por Categoría
+// Obtener Total por Categoría (ahora acepta año, mes y categoría)
 exports.getTotalPorCategoria = async (req, res) => {
   const userId = req.user.userId;
-  const { categoria } = req.query;
+  const { categoria, mes, anio } = req.query;
 
   if (!categoria) {
     return res.status(400).json({ message: 'Debes proporcionar una categoría' });
   }
 
-  try {
-    const total = await db.Gasto.sum('monto', {
-      where: {
-        user_id: userId,
-        categoria
-      }
-    });
+  const where = { user_id: userId, categoria };
 
+  if (mes) {
+    where[db.Sequelize.Op.and] = [
+      db.Sequelize.where(
+        db.Sequelize.fn('EXTRACT', db.Sequelize.literal('MONTH FROM "fecha"')),
+        mes
+      )
+    ];
+  }
+
+  if (anio) {
+    if (!where[db.Sequelize.Op.and]) where[db.Sequelize.Op.and] = [];
+    where[db.Sequelize.Op.and].push(
+      db.Sequelize.where(
+        db.Sequelize.fn('EXTRACT', db.Sequelize.literal('YEAR FROM "fecha"')),
+        anio
+      )
+    );
+  }
+
+  try {
+    const total = await db.Gasto.sum('monto', { where });
     res.status(200).json({ total: total || 0 });
   } catch (error) {
     console.error(error);
