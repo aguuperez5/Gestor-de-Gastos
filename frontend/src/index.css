@@ -1,0 +1,6 @@
+/* Estilos globales básicos */
+body {
+  margin: 0;
+  font-family: Roboto, system-ui, sans-serif;
+  background: #f5f6fa;
+}
