@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
   }
 };
 exports.register = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
     const existingUser = await db.User.findOne({ where: { email } });
@@ -40,7 +40,8 @@ exports.register = async (req, res) => {
 
     const password_hash = await bcrypt.hash(password, 10);
 
-    const newUser = await db.User.create({ email, password_hash });
+    // Guarda username también
+    const newUser = await db.User.create({ username, email, password_hash });
     res.status(201).json({ message: 'Usuario creado', user: newUser });
   } catch (error) {
     console.error(error);
