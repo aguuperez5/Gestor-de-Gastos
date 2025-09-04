@@ -1,11 +1,11 @@
 const express = require('express');
-const cors = require('cors'); // <-- agrega esto
+const cors = require('cors');
 const app = express();
 const db = require('./models');
 
 require('dotenv').config();
 
-app.use(cors()); // <-- y esto
+app.use(cors()); 
 app.use(express.json());
 
 // Importar rutas
